@@ -38,10 +38,10 @@ export default function PopularBlogs() {
   };
 
   return (
-    <div className="bg-[#f7f8fc]">
+    <div className="bg-[rgba(0,0,255,0.1)]">
       <div className="mx-auto max-w-[1300px] py-12 px-6 md:px-0 z-[100]">
         <div className="w-full text-center md:py-14 py-10">
-          <p className="md:text-5xl text-3xl font-semibold text-[#4066aa]">
+          <p className="md:text-5xl text-3xl font-semibold text-[#4066dd]">
             Recent Blogs
           </p>
         </div>
