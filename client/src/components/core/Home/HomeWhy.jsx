@@ -23,7 +23,7 @@ export default function HomeWhy() {
           {whyEdiary.map((item, index) => (
             <div className="" key={index}>
               <div
-                className="flex flex-col min-h-[350px] max-w-[380px] items-center gap-y-4 px-4 py-12 rounded-lg border-b-[10px] shadow-lg z-[20] hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-105"
+                className="flex flex-col min-h-[350px] max-w-[380px] items-center gap-y-4 px-4 py-12 rounded-lg border-b-[10px] shadow-lg z-[20] hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-105 bg-white"
                 style={{ borderColor: item.color }}
               >
                 <div
