@@ -56,7 +56,7 @@ export default function Navbar() {
     <>
       {showMenu && (
         <div
-          className="fixed z-2 h-[100%] w-[100vw] bg-[#00000053] top-20"
+          className="fixed z-10 h-[100%] w-[100vw] bg-[#00000053] top-20"
           onClick={toogleMenu}
         ></div>
       )}
@@ -65,8 +65,8 @@ export default function Navbar() {
         <div
           className={
             !showMenu
-              ? "w-[100%] bg-white fixed top-20 z-3 py-[15px]"
-              : "w-[100%] bg-white fixed top-20 z-3  py-[15px] animation-showMenu"
+              ? "w-[100%] bg-white fixed top-20 z-20 py-[15px]"
+              : "w-[100%] bg-white fixed top-20 z-20  py-[15px] animation-showMenu"
           }
         >
           <ul className="flex flex-col items-center gap-y-[30px]">
@@ -166,7 +166,7 @@ export default function Navbar() {
       <nav
         className={`flex items-center justify-center ${
           !scrolled ? "bg-transparent" : "bg-[#000]"
-        } h-20 fixed z-99 w-[100vw] text-[18px]`}
+        } h-20 fixed z-10 w-[100vw] text-[18px]`}
       >
         <div className="flex items-center justify-between max-w-maxContent w-[94%] mx-auto">
           <Link to-="/" className="flex items-center gap-3">
