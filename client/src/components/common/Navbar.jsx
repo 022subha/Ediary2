@@ -165,7 +165,11 @@ export default function Navbar() {
       )}
       <nav
         className={`flex items-center justify-center ${
-          !scrolled ? "bg-transparent" : "bg-[#000]"
+          !scrolled
+            ? location.pathname === "/"
+              ? "bg-transparent"
+              : "bg-[#000]"
+            : "bg-[#000]"
         } h-20 fixed z-10 w-[100vw] text-[18px]`}
       >
         <div className="flex items-center justify-between max-w-maxContent w-[94%] mx-auto">
