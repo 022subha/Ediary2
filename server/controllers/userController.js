@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { activationMail } from "../mails/activationMail.js";
 import { User } from "../models/userModel.js";
 import { sendMail } from "../utils/sendMail.js";
 
@@ -23,13 +24,13 @@ export const register = async (req, res) => {
     const user = { firstName, lastName, email, password };
     const activationToken = createActivationToken(user);
     const { token, otp } = activationToken;
-    const data = { user: { name: user.name }, otp };
+    const data = { user: { name: user.firstName }, otp };
 
     await sendMail({
       email: user.email,
       subject: "Verify your email",
       template: "activationMail.ejs",
-      data,
+      body: activationMail(data),
     });
 
     return res.status(200).json({

@@ -1,32 +1,24 @@
-import ejs from "ejs";
 import nodemailer from "nodemailer";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const sendMail = async (options) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
+      service: "gmail",
       auth: {
         user: process.env.SMTP_MAIL,
         pass: process.env.SMTP_PASSWORD,
       },
     });
 
-    const { email, subject, template, data } = options;
-
-    const templatePath = path.join(__dirname, "../mails", template);
-    const html = await ejs.renderFile(templatePath, data);
+    const { email, subject, body } = options;
 
     const mailOptions = {
-      from: "ediary@gmail.com",
+      from: "Ediary",
       to: email,
       subject,
-      html,
+      html: `${body}`,
     };
 
     await transporter.sendMail(mailOptions);
