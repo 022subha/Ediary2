@@ -29,7 +29,6 @@ export const register = async (req, res) => {
     await sendMail({
       email: user.email,
       subject: "Verify your email",
-      template: "activationMail.ejs",
       body: activationMail(data),
     });
 
