@@ -11,9 +11,9 @@ import { MdReadMore } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { popularCourses as courses } from "../../../data/popularCourses";
 
-const CourseCard = ({ item, index }) => {
+const CourseCard = ({ item }) => {
   return (
-    <Link to="" className="" key={index}>
+    <Link to="" className="">
       <div
         className="flex flex-col min-h-[490px] max-w-[480px] items-center gap-y-4 px-4 py-12 pt-4 rounded-lg  border-[2px] border-b-[10px] shadow-lg shadow-inner z-[20] hover:shadow-xl"
         style={{
@@ -39,16 +39,13 @@ const CourseCard = ({ item, index }) => {
           <p className="text-yellow-600">{item.rating.toFixed(1)}</p>
           <div className="flex items-center gap-x-2 pl-3 pr-1">
             {[...Array(Math.floor(item.rating))].map((item, index) => (
-              <FaStar className="text-yellow-600 text-[24px]" index={index} />
+              <FaStar className="text-yellow-600 text-[24px]" key={index} />
             ))}
             {item.rating !== Math.floor(item.rating) && (
               <FaStarHalfAlt className="text-yellow-600 text-[24px]" />
             )}
             {[...Array(5 - Math.ceil(item.rating))].map((item, index) => (
-              <FaRegStar
-                className="text-[#676665] text-[24px] "
-                index={index}
-              />
+              <FaRegStar className="text-[#676665] text-[24px] " key={index} />
             ))}
           </div>
           <p>({item.ratingCount} Ratings)</p>
@@ -73,7 +70,7 @@ export default function PopularCourses() {
         </div>
         <div className="   grid w-fit justify-center lg:grid-cols-1 xl:grid-cols-3 mx-auto gap-x-6 gap-y-16 ">
           {courses.map((item, index) => (
-            <CourseCard item={item} index={index} />
+            <CourseCard item={item} key={index} />
           ))}
         </div>
         <Link to="/courses" className="mt-16 flex items-center justify-center">

@@ -1,9 +1,32 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../services/operations/authAPI";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showPass, setShowPass] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const handleOnChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(formData, navigate));
+  };
 
   return (
     <div className="pt-20 w-[100%]">
@@ -12,15 +35,21 @@ export default function Login() {
           <p className="text-[36px] font-semibold pb-2 text-[#4066ff] text-center">
             Welcome to Ediary
           </p>
-          <form className="flex flex-wrap py-6 gap-y-6">
+          <form
+            className="flex flex-wrap py-6 gap-y-6"
+            onSubmit={handleOnSubmit}
+          >
             <div className="flex flex-col items-start w-[100%]">
               <label className="after:content-['*'] after:text-[#f00]">
                 Email
               </label>
               <input
-                type="email"
-                placeholder="Enter email"
                 required
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleOnChange}
+                placeholder="Enter email"
                 className="w-full bg-slate-300 h-[44px] rounded-md px-4"
               />
             </div>
@@ -29,9 +58,12 @@ export default function Login() {
                 Password
               </label>
               <input
-                type={showPass ? "text" : "password"}
-                placeholder="Enter password"
                 required
+                type={showPass ? "text" : "password"}
+                name="password"
+                value={password}
+                onChange={handleOnChange}
+                placeholder="Enter password"
                 className="bg-slate-300 h-[44px] rounded-md pl-4 w-[100%]"
               />
               <Link

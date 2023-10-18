@@ -18,9 +18,9 @@ export const activationMail = (data) => {
       text-align: center;
     "
   >
-    <div class="email-wrapper" style="max-width: 600px; margin: 0 auto">
+    <div className="email-wrapper" style="max-width: 600px; margin: 0 auto">
       <div
-        class="email-header"
+        className="email-header"
         style="background-color:#4066ff;padding:24px;color:#ffffff;"
       >
       <img
@@ -41,7 +41,7 @@ export const activationMail = (data) => {
             Ediary
           </p>
       </div>
-      <div class="email-body" style="padding: 24px; background-color: #ffffff">
+      <div className="email-body" style="padding: 24px; background-color: #ffffff">
         <p style="margin-top: 0; margin-bottom: 24px">
           Hello ${data.user.name},
         </p>
@@ -51,7 +51,7 @@ export const activationMail = (data) => {
           account:
         </p>
         <h2
-          class="otp"
+          className="otp"
           style="
             display: inline-block;
             padding: 10px 25px;
@@ -72,7 +72,7 @@ export const activationMail = (data) => {
         </p>
       </div>
       <div
-        class="email-footer"
+        className="email-footer"
         style="padding: 24px; background-color: #ded9d9"
       >
         <p style="margin-top: 0; margin-bottom: 24px">

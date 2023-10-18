@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 import { FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdMail, MdOutlineComputer, MdSpaceDashboard } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { matchPath, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
@@ -20,7 +21,8 @@ export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showResProfileMenu, setShowResProfileMenu] = useState(false);
 
-  const token = "null";
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.profile);
   const totalItems = 1;
 
   useEffect(() => {
@@ -202,7 +204,7 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden md:flex items-center gap-x-5">
-            {token !== null && (
+            {user && user?.accountType === "Student" && (
               <Link to="/dashboard/cart" className="relative">
                 <AiOutlineShoppingCart className="text-[25px] text-[#fff]" />
                 {totalItems > 0 && (

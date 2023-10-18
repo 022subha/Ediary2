@@ -49,6 +49,9 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
+      default: function () {
+        return `https://api.dicebear.com/5.x/initials/svg?seed=${this.firstName} ${this.lastName}`;
+      },
     },
     courseProgress: [
       {

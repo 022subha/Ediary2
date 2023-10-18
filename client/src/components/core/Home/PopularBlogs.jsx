@@ -6,9 +6,9 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { popularBlogs as blogs } from "../../../data/popularBlogs";
 
-const BlogCard = ({ item, index }) => {
+const BlogCard = ({ item }) => {
   return (
-    <Link to={item.route} className="" key={index}>
+    <Link to={item.route} className="">
       <div
         className="flex flex-col min-h-[300px] max-w-[480px] items-center gap-y-4 px-4 py-12 pt-4 rounded-lg  shadow-lg shadow-inner z-[20] hover:shadow-xl bg-white"
         style={{
@@ -48,7 +48,7 @@ export default function PopularBlogs() {
         <div className="w-11/12 mx-auto">
           <Slider {...settings}>
             {blogs.map((item, index) => (
-              <BlogCard item={item} index={index} />
+              <BlogCard item={item} key={index} />
             ))}{" "}
           </Slider>
         </div>

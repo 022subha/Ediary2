@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { VscDashboard, VscSignOut } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 export default function ProfileDropdown() {
+  const { user } = useSelector((state) => state.profile);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   useOnClickOutside(ref, () => setOpen(false));
@@ -18,8 +20,8 @@ export default function ProfileDropdown() {
     >
       <div className="flex gap-x-1 items-center">
         <img
-          src="/assets/images/IMG_8913.jpg"
-          alt=""
+          src={user?.image}
+          alt={user?.firstName}
           className="w-[40px] aspect-square object-cover rounded-full"
         />
         {open ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}

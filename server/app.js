@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -10,7 +11,8 @@ connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: process.env.ORIGIN }));
+app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
+app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 
