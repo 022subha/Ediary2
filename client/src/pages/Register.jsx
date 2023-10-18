@@ -31,16 +31,15 @@ export default function Register() {
   };
 
   const isStrongPassword = (password) => {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-      password
-    );
+    const strongPasswordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+    return strongPasswordRegex.test(password);
   };
 
   // Handle Form Submission
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!isStrongPassword(password)) {
-      toast.error("Please a enter a strong password", {
+      toast.error("Please enter a strong password", {
         position: toast.POSITION.TOP_RIGHT,
       });
       return;
