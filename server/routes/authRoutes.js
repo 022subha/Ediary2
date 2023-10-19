@@ -1,6 +1,8 @@
 import express from "express";
+
 import {
   login,
+  logout,
   profileDetails,
   register,
   verifyEmail,
@@ -11,6 +13,7 @@ const router = express.Router();
 router.route("/register").post(register);
 router.route("/verify-email").post(verifyEmail);
 router.route("/login").post(login);
-router.route("/user-info").get(authLoginMiddleware, profileDetails);
+router.route("/user-info").get(profileDetails);
+router.route("/logout").delete(authLoginMiddleware, logout);
 
 export default router;

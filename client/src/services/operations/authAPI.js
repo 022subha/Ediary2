@@ -1,14 +1,11 @@
 import { toast } from "react-toastify";
-import {
-  setActivationToken,
-  setLoading,
-  setToken,
-} from "../../redux/slices/authSlice";
+import { setActivationToken, setLoading } from "../../redux/slices/authSlice";
 import { setUser } from "../../redux/slices/profileSlice.js";
 import { authEndpoints } from "../api";
 import { apiConnector } from "../apiConnector";
 
-const { SIGN_UP, VERIFY_EMAIL, LOGIN, USER_INFO } = authEndpoints;
+const { SIGN_UP, VERIFY_EMAIL, LOGIN, USER_INFO, LOGOUT, GOOGLE_CALLBACK } =
+  authEndpoints;
 
 export function register(data, navigate) {
   return async (dispatch) => {
@@ -75,9 +72,7 @@ export function login(data, navigate) {
       toast.success(response?.data?.message, {
         position: toast.POSITION.TOP_CENTER,
       });
-      dispatch(setToken(response?.data?.activationToken));
       dispatch(setUser(response?.data?.user));
-      localStorage.setItem("token", JSON.stringify(response.data.token));
       navigate("/dashboard/my-profile");
     } catch (error) {
       dispatch(setLoading(false));
@@ -100,12 +95,32 @@ export function getUserInfo() {
     try {
       dispatch(setLoading(true));
       const response = await apiConnector(`GET`, USER_INFO);
-      console.log(response);
       dispatch(setLoading(false));
       dispatch(setUser(response?.data?.user));
     } catch (error) {
       dispatch(setLoading(false));
       console.log(error);
     }
+  };
+}
+
+export function logout(navigate) {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      await apiConnector(`DELETE`, LOGOUT);
+      dispatch(setLoading(false));
+      dispatch(setUser(null));
+      navigate("/");
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
+    }
+  };
+}
+
+export function googleCallback() {
+  return async () => {
+    window.open(GOOGLE_CALLBACK, "_self");
   };
 }

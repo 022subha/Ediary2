@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+    },
+    googleId: {
+      type: String,
     },
     accountType: {
       type: String,
@@ -62,5 +64,13 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.path("password").validate(function (value) {
+  return value || this.googleId;
+});
+
+userSchema.path("googleId").validate(function (value) {
+  return value || this.password;
+});
 
 export const User = mongoose.model("User", userSchema);

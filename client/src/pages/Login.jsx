@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/operations/authAPI";
+import { googleCallback, login } from "../services/operations/authAPI";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -95,7 +95,12 @@ export default function Login() {
             <p>OR</p>
             <div className="w-1/3 border-b-[1px] border-black"></div>
           </div>
-          <div className="flex gap-x-3 my-6 px-[15px] py-[10px] rounded-xl cursor-pointer w-fit mx-auto border-2 items-center justify-center shadow-lg">
+          <div
+            className="flex gap-x-3 my-6 px-[15px] py-[10px] rounded-xl cursor-pointer w-fit mx-auto border-2 items-center justify-center shadow-lg"
+            onClick={() => {
+              dispatch(googleCallback());
+            }}
+          >
             <img src="/assets/images/google.svg" alt="" className="h-[30px]" />
             <p className="text-lg">Sign In with Google</p>
           </div>

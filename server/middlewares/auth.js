@@ -4,7 +4,7 @@ import { User } from "../models/userModel.js";
 export const authLoginMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log(req.cookies);
+
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -20,7 +20,7 @@ export const authLoginMiddleware = async (req, res, next) => {
         .json({ success: false, message: "Token is invalid." });
     }
 
-    const user = await User.findOne({ email: decoded?.email }).populate(
+    let user = await User.findOne({ email: decoded?.email }).populate(
       "additionalDetails"
     );
 

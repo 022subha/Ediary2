@@ -21,7 +21,6 @@ export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showResProfileMenu, setShowResProfileMenu] = useState(false);
 
-  const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const totalItems = 1;
 
@@ -113,7 +112,7 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              {token === null ? (
+              {user === null ? (
                 <Link to="/login">
                   <button className="text-[24px] rounded-[5px] bg-custom-gradient text-white px-[28px] py-[6px] text-richblack-100">
                     Login
@@ -215,9 +214,9 @@ export default function Navbar() {
               </Link>
             )}
 
-            {token !== null && <ProfileDropdown />}
+            {user !== null && <ProfileDropdown />}
 
-            {token === null && (
+            {user === null && (
               <Link to="/login">
                 <button className="text-[16px] rounded-[5px] bg-custom-gradient text-white px-[20px] py-[6px] text-richblack-100">
                   Login
@@ -226,7 +225,7 @@ export default function Navbar() {
             )}
           </div>
           <div className="flex items-center gap-x-2 md:hidden">
-            {token !== null && (
+            {user !== null && (
               <Link to="/dashboard/cart" className="relative mr-4 md:hidden">
                 <AiOutlineShoppingCart className="text-[25px] text-[#fff]" />
                 {totalItems > 0 && (

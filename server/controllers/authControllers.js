@@ -17,14 +17,14 @@ export const register = async (req, res) => {
     }
 
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    if (existingUser?.password) {
       return res.status(400).json({
         success: false,
         message: "User already exists. Please Sign In to continue.",
       });
     }
 
-    const user = { firstName, lastName, email, password };
+    const user = { ...existingUser, firstName, lastName, email, password };
     const activationToken = createActivationToken(user);
     const { token, otp } = activationToken;
     const data = { user: { name: user.firstName }, otp };
@@ -63,29 +63,37 @@ export const verifyEmail = async (req, res) => {
 
     const { firstName, lastName, email, password } = userInfo.user;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    let existingUser = await User.findOne({ email });
+    if (existingUser?.password) {
       return res
         .status(400)
         .json({ success: false, message: "User already exists." });
     }
 
+    let user;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const profileDetails = await Profile.create({
-      gender: null,
-      dateOfBirth: null,
-      about: null,
-      contactNumber: null,
-    });
+    if (!existingUser) {
+      const profileDetails = await Profile.create({
+        gender: null,
+        dateOfBirth: null,
+        about: null,
+        contactNumber: null,
+      });
 
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      additionalDetails: profileDetails._id,
-    });
+      user = await User.create({
+        ...existingUser,
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        additionalDetails: profileDetails._id,
+      });
+    } else {
+      existingUser.password = hashedPassword;
+      await existingUser.save();
+      user = existingUser;
+    }
 
     return res
       .status(200)
@@ -110,7 +118,7 @@ export const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email }).populate("additionalDetails");
-    if (!user) {
+    if (!user?.password) {
       return res.status(401).json({
         success: false,
         message: `User is not Registered with Us Please SignUp to Continue`,
@@ -159,8 +167,42 @@ export const login = async (req, res) => {
 
 export const profileDetails = async (req, res) => {
   try {
-    const user = req.user;
-    return res.status(200).json({ success: true, user });
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(201).json({
+        user: null,
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return res.status(202).json({ user: null });
+    }
+
+    let user = await User.findOne({ email: decoded?.email }).populate(
+      "additionalDetails"
+    );
+
+    if (!user) {
+      return res.status(403).json({ user: null });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res
+      .cookie("token", null, { expires: new Date(Date.now()) })
+      .status(200)
+      .json({ success: true, message: "Logout Successfully" });
   } catch (error) {
     console.log(error);
     return res
