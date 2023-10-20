@@ -5,6 +5,8 @@ import "./App.css";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import Spinner from "./components/common/Spinner";
+import MyProfile from "./components/core/Dashboard/MyProfile";
+import Setting from "./components/core/Dashboard/Setting";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -31,10 +33,10 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
           <Route element={<Dashboard />}>
-            <Route path="/dashboard/my-profile" element={<></>}></Route>
+            <Route path="/dashboard/my-profile" element={<MyProfile />}></Route>
             <Route path="/dashboard/enrolled-courses" element={<></>}></Route>
             <Route path="/dashboard/cart" element={<></>}></Route>
-            <Route path="/dashboard/settings" element={<></>}></Route>
+            <Route path="/dashboard/settings" element={<Setting />}></Route>
           </Route>
         </Routes>
         <Footer />
