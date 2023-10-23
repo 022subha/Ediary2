@@ -47,7 +47,11 @@
 .slick-slide {
   padding: 20px 0;
 }
+
 .slick-slide > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 15px;
 }
 
@@ -55,12 +59,30 @@
   color: #4066ff !important;
 }
 
-.slick-slide {
+.min-h-custom {
+  min-height: calc(100vh - 60px);
+}
+
+.banner {
+  width: 100vw;
+  height: 400px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(../public/assets/images/contact/courses-banner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.min-h-custom {
-  min-height: calc(100vh - 60px);
+.shadow-custom {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.contact-form-style input:focus ~ label {
+  top: -5px;
+  color: #4066ff;
+  font-size: 15px;
 }

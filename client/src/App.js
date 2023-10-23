@@ -7,6 +7,8 @@ import Navbar from "./components/common/Navbar";
 import Spinner from "./components/common/Spinner";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Setting from "./components/core/Dashboard/Setting";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -32,6 +34,8 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/verify-email" element={<VerifyEmail />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
           <Route element={<Dashboard />}>
             <Route path="/dashboard/my-profile" element={<MyProfile />}></Route>
             <Route path="/dashboard/enrolled-courses" element={<></>}></Route>
