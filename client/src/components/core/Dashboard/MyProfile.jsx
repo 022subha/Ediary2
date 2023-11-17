@@ -14,7 +14,7 @@ export default function MyProfile() {
       <div className="flex flex-col md:flex-row max-md:gap-y-6 items-center justify-between px-10 py-8 rounded-lg  bg-custom-gradient">
         <div className="flex flex-col sm:flex-row max-sm:gap-y-2 gap-x-4 items-center">
           <img
-            src="/assets/images/logo.png"
+            src={user?.image}
             alt=""
             className="object-cover aspect-square w-[78px] rounded-full border-white border-2"
           />

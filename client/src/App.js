@@ -5,6 +5,8 @@ import "./App.css";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import Spinner from "./components/common/Spinner";
+import AddCourse from "./components/core/Dashboard/AddCourse";
+import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Setting from "./components/core/Dashboard/Setting";
 import About from "./pages/About";
@@ -18,6 +20,7 @@ import { getUserInfo } from "./services/operations/authAPI";
 function App() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(getUserInfo());
@@ -41,6 +44,15 @@ function App() {
             <Route path="/dashboard/enrolled-courses" element={<></>}></Route>
             <Route path="/dashboard/cart" element={<></>}></Route>
             <Route path="/dashboard/settings" element={<Setting />}></Route>
+
+            {user?.accountType === "Instructor" && (
+              <>
+                <Route path="dashboard/instructor" element={<Instructor />} />
+                <Route path="dashboard/add-course" element={<AddCourse />} />
+                <Route path="dashboard/my-courses" element={<></>} />
+                <Route path="dashboard/edit-course/:courseId" element={<></>} />
+              </>
+            )}
           </Route>
         </Routes>
         <Footer />

@@ -9,3 +9,9 @@ export const authEndpoints = {
   LOGOUT: BASE_URL + `/auth/logout`,
   GOOGLE_CALLBACK: BASE_URL + `/auth/google/callback`,
 };
+
+//Categories Endpoints
+export const courseEndPoints = {
+  COURSE_CATEGORIES_API: BASE_URL + "/course/show-all-categories",
+  CREATE_COURSE_API: BASE_URL + "/course/create-course",
+};

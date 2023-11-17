@@ -31,7 +31,7 @@ export default function Sidebar() {
         <div className="flex flex-col">
           {sidebarLinks.map((item, index) =>
             item.type && item.type !== user?.accountType ? (
-              <></>
+              <React.Fragment key={index}></React.Fragment>
             ) : (
               <SidebarLink key={index} item={item} />
             )
@@ -62,7 +62,7 @@ export default function Sidebar() {
         <div className="flex flex-row items-center md:justify-between justify-evenly w-full">
           {sidebarLinks.map((item, index) =>
             item.type && item.type !== user?.accountType ? (
-              <></>
+              <React.Fragment key={index}></React.Fragment>
             ) : (
               <SidebarLink key={index} item={item} />
             )
